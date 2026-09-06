@@ -48,7 +48,7 @@ public class OrderFlowTest {
     public static Collection<Object[]> data() {
         return OrderData.getOrderData();
     }
-
+//тест
     @Before
     public void setUp() {
         driver = new ChromeDriver();

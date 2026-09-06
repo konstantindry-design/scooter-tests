@@ -54,7 +54,7 @@ public class MainPage {
         WebElement header = wait.until(ExpectedConditions.elementToBeClickable(accordionHeader));
         header.click();
     }
-
+//тест
     public boolean isAccordionContentVisible() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(accordionContent)).isDisplayed();
     }

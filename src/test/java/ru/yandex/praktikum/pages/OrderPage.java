@@ -10,7 +10,7 @@ import java.util.List;
 public class OrderPage {
     private final WebDriver driver;
     private final WebDriverWait wait;
-
+//тест
     private final By metroInputLocator = By.cssSelector("input.select-search__input");
 
     private final By metroDropdownContainer = By.cssSelector("div.select-search__select");

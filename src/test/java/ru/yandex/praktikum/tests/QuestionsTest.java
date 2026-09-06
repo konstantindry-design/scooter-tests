@@ -19,7 +19,7 @@ public class QuestionsTest {
         driver = new ChromeDriver();
         mainPage = new MainPage(driver);
     }
-
+//тест
     @After
     public void tearDown() {
         if (driver != null) {
