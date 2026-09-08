@@ -12,9 +12,7 @@ public class OrderPage {
     private final WebDriverWait wait;
 
     private final By metroInputLocator = By.cssSelector("input.select-search__input");
-
     private final By metroDropdownContainer = By.cssSelector("div.select-search__select");
-
     private final By metroOptionButtons = By.cssSelector("div.select-search__select button");
 
     private final By firstNameInput = By.xpath("//input[contains(@placeholder, 'Имя')]");
@@ -36,10 +34,11 @@ public class OrderPage {
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15)); // Увеличили таймаут для надежности
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
-    public void fillStep1(String firstName, String lastName, String address, String metroStation, String phone) {
+    // Было: fillStep1 -> Стало: fillPersonalAndMetroData
+    public void fillPersonalAndMetroData(String firstName, String lastName, String address, String metroStation, String phone) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(firstNameInput)).sendKeys(firstName);
         driver.findElement(lastNameInput).sendKeys(lastName);
         driver.findElement(addressInput).sendKeys(address);
@@ -59,12 +58,11 @@ public class OrderPage {
                 break;
             }
         }
-
+//
         if (!found) {
             throw new NoSuchElementException("Станция метро '" + metroStation + "' не найдена в списке. Доступные: " +
                     options.stream().map(WebElement::getText).reduce((a, b) -> a + ", " + b).orElse("пусто"));
         }
-        // ---------------------------------------------------------
 
         driver.findElement(phoneInput).sendKeys(phone);
     }
@@ -73,7 +71,8 @@ public class OrderPage {
         wait.until(ExpectedConditions.elementToBeClickable(nextButton)).click();
     }
 
-    public void fillStep2(String comment, String color, String rentalPeriod, String deliveryDate) {
+    // Было: fillStep2 -> Стало: fillOrderDetails
+    public void fillOrderDetails(String comment, String color, String rentalPeriod, String deliveryDate) {
         driver.findElement(commentInput).sendKeys(comment);
 
         if ("чёрный жемчуг".equals(color)) {
@@ -110,5 +109,6 @@ public class OrderPage {
         }
     }
 }
+
 
 

@@ -2,9 +2,8 @@ package ru.yandex.praktikum.data;
 
 import java.util.Arrays;
 import java.util.List;
-
+//
 public class OrderData {
-
     public static List<Object[]> getOrderData() {
         return Arrays.asList(
                 new Object[]{

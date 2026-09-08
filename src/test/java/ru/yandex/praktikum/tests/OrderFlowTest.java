@@ -5,8 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import ru.yandex.praktikum.data.OrderData;
 import ru.yandex.praktikum.pages.MainPage;
 import ru.yandex.praktikum.pages.OrderPage;
@@ -16,8 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-public class OrderFlowTest {
-    private WebDriver driver;
+public class OrderFlowTest extends BaseTest {
+
     private MainPage mainPage;
     private OrderPage orderPage;
 
@@ -51,32 +49,43 @@ public class OrderFlowTest {
 
     @Before
     public void setUp() {
-        driver = new ChromeDriver();
+        super.setUp();
         mainPage = new MainPage(driver);
         orderPage = new OrderPage(driver);
     }
 
     @After
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        super.tearDown();
     }
-    // test commit
+
     @Test
     public void checkOrderFlow() {
         mainPage.open();
         mainPage.clickOrderButton();
 
-        orderPage.fillStep1(firstName, lastName, address, metro, phone);
+        orderPage.fillPersonalAndMetroData(firstName, lastName, address, metro, phone);
         orderPage.clickNext();
-        orderPage.fillStep2(comment, color, rentalPeriod, deliveryDate);
+
+        orderPage.fillOrderDetails(comment, color, rentalPeriod, deliveryDate);
         orderPage.clickOrder();
         orderPage.clickConfirm();
 
         assertThat(orderPage.isOrderSuccessVisible()).isTrue();
     }
+
+    @Test
+    public void checkOrderFlowWithSecondButton() {
+        mainPage.open();
+        mainPage.clickOrderButton();
+
+        orderPage.fillPersonalAndMetroData(firstName, lastName, address, metro, phone);
+        orderPage.clickNext();
+
+        orderPage.fillOrderDetails(comment, color, rentalPeriod, deliveryDate);
+        orderPage.clickOrderWithSpecificClass();
+        orderPage.clickConfirm();
+
+        assertThat(orderPage.isOrderSuccessVisible()).isTrue();
+    }
 }
-
-
-

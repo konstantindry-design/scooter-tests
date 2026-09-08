@@ -17,9 +17,6 @@ public class MainPage {
     private final By orderButtonTop = By.xpath("(//button[text()='Заказать'])[1]");
     private final By orderButtonBottom = By.xpath("(//button[text()='Заказать'])[2]");
 
-    private final By accordionHeader = By.cssSelector(".accordion__button");
-    private final By accordionContent = By.cssSelector(".accordion__panel");
-
     public MainPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -50,14 +47,22 @@ public class MainPage {
         wait.until(ExpectedConditions.elementToBeClickable(button)).click();
     }
 
-    public void clickAccordionHeader() {
-        WebElement header = wait.until(ExpectedConditions.elementToBeClickable(accordionHeader));
+    public void clickAccordionHeaderByIndex(int index) {
+        By locator = By.cssSelector(String.format("div[id='accordion__heading-%d']", index));
+        WebElement header = wait.until(ExpectedConditions.elementToBeClickable(locator));
         header.click();
     }
 
-    public boolean isAccordionContentVisible() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(accordionContent)).isDisplayed();
+    public String getAccordionAnswerByIndex(int index) {
+        By locator = By.cssSelector(String.format("div[id='accordion__panel-%d']", index));
+        WebElement panel = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        return panel.getText();
+    }
+
+    public int getAccordionQuestionCount() {
+        return driver.findElements(By.cssSelector("div[id^='accordion__heading-']")).size();
     }
 }
+
 
 
