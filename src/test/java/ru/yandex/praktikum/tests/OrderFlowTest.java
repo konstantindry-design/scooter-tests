@@ -46,6 +46,7 @@ public class OrderFlowTest extends BaseTest {
     public static Collection<Object[]> data() {
         return OrderData.getOrderData();
     }
+
     @Before
     public void setUp() {
         super.setUp();
@@ -65,6 +66,7 @@ public class OrderFlowTest extends BaseTest {
 
         orderPage.fillPersonalAndMetroData(firstName, lastName, address, metro, phone);
         orderPage.clickNext();
+
         orderPage.fillOrderDetails(comment, color, rentalPeriod, deliveryDate);
         orderPage.clickOrder();
         orderPage.clickConfirm();
@@ -87,7 +89,3 @@ public class OrderFlowTest extends BaseTest {
         assertThat(orderPage.isOrderSuccessVisible()).isTrue();
     }
 }
-
-
-
-

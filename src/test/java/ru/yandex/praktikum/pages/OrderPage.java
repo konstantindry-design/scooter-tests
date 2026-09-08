@@ -58,7 +58,7 @@ public class OrderPage {
                 break;
             }
         }
-
+//
         if (!found) {
             throw new NoSuchElementException("Станция метро '" + metroStation + "' не найдена в списке. Доступные: " +
                     options.stream().map(WebElement::getText).reduce((a, b) -> a + ", " + b).orElse("пусто"));
